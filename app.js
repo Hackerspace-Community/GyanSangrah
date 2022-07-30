@@ -27,6 +27,7 @@ const currentUser = require("./utils/user/currentUser.js");
  * Routers.
  */
 const UserRouter = require("./routes/user/user.router.js");
+const ContributionRouter = require("./routes/contribution/contribution.router.js");
 
 /**
  * Declarations.
@@ -64,6 +65,7 @@ app.use(async (req, res, next) => {
  * Routes.
  */
 app.use("/", UserRouter);
+app.use("/", ContributionRouter);
 
 /**
  * Home Route.
