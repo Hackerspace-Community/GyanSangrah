@@ -27,6 +27,7 @@ const currentUser = require("./utils/user/currentUser.js");
  * Routers.
  */
 const UserRouter = require("./routes/user/user.router.js");
+const AdminRouter = require("./routes/admin/admin.router.js");
 
 /**
  * Declarations.
@@ -64,6 +65,8 @@ app.use(async (req, res, next) => {
  * Routes.
  */
 app.use("/", UserRouter);
+app.use("/", AdminRouter);
+
 
 /**
  * Home Route.
@@ -72,6 +75,7 @@ app.route("/")
     .get((req, res)=>{
         res.render("home");
     });
+//MONGODB_URI=mongodb+srv://harshitrv:Ty60VWGHE3d8H03B@cluster0.25abo.mongodb.net/TechMarathonDB?retryWrites=true&w=majority
 
 
 app.listen(PORT, ()=>{

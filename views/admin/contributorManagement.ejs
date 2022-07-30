@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/"> 
+<div>
+
+
+<table>
+    <% for(var i=0; i < users.length; i++) { %>
+       <tr>
+         <td><%= users[i]._id %></td>
+         <td><%= users[i].firstName %></td>
+         <td><%= users[i].role %></td>
+
+         <td>
+            
+            <form action="/admin/contributorManagementApprove/<%= users[i]._id %>" method="POST">
+              
+       
+                    <button type="submit" class="">
+                        APPROVE
+                    </button>
+               
+            </form>
+            
+
+
+       
+      
+            
+            
+
+
+         <td><a href="">EDIT</a></td>
+         <td>     <form action="/admin/contributorManagementDelete/<%= users[i]._id %>" method="POST">
+              
+       
+            <button type="submit" class="">
+                DELETE
+            </button>
+       
+    </form></td>
+
+       </tr>
+    <% } %>
+    </table>
+
+
+</div>
+<script src="/js/"></script>
