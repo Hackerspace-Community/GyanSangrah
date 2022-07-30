@@ -16,6 +16,157 @@
  const catchAsync = require("../../utils/catchAsync.js");
 
 
+
+ const Contribution = require('../../models/contribution.model.js');
+
+
+ module.exports.dashboard = catchAsync(async (req, res) => {
+    const contributon = await Contribution.find()
+    const users = await User.find()
+    const category = await Category.find()
+
+    if(!contributon) {
+        req.flash("error", "No Users found");
+        return res.redirect("/");
+    }
+    
+    res.render("admin/dashboard", {
+        contributon,users,category
+    });
+});
+
+
+module.exports.dashboardSearch = catchAsync(async (req, res) => {
+ //   const contributonList = await Contribution.find()
+    const users = await User.find()
+    const category = await Category.find()
+
+  /*  if(!contributonList) {
+        req.flash("error", "No Users found");
+        return res.redirect("/");
+    }
+*/
+
+    const {
+        anything,categoryId,contributorId,toDate,fromDate
+    } = req.body;
+    
+console.log(anything,categoryId,contributorId);
+
+if(!anything && categoryId!="All" & contributorId != "All"){
+
+console.log('ANYTHING');
+
+}
+
+
+
+
+
+else if(anything && categoryId=="All" & contributorId != "All"){
+
+    console.log('ANYTHING Category');
+
+}else{
+    
+    return res.redirect('/admin/dashboard');   
+}
+
+
+/*
+
+    Contribution.find({title:anything }, function (err, contributon) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.render("admin/dashboard", {
+                contributon,users,category
+            });
+        }
+    });
+
+*/
+
+
+
+// !anything   
+/*if(anything && contributorId && categoryId){
+    console.log("nullsed");
+    
+    
+       Contribution.find({title: anything  }, function (err, contributon) {
+            if (err){
+                console.log(err)
+            }
+            else{
+                res.render("admin/dashboard", {
+                    contributon,users,category
+                });
+            }
+        });
+    
+    
+    
+        console.log("detect n");
+    }else if(categoryId == "All" && contributorId == "All" && !anything){
+
+
+ Contribution.find({title: anything }, function (err, contributon) {
+    if (err){
+        console.log(err)
+    }
+    else{
+        res.render("admin/dashboard", {
+            contributon,users,category
+        });
+    }
+})
+
+
+
+    }else if(categoryId == "All" && contributorId != "All" && !anything){
+
+
+        Contribution.find({}, function (err, contributon) {
+           if (err){
+               console.log(err)
+           }
+           else{
+               res.render("admin/dashboard", {
+                   contributon,users,category
+               });
+           }
+       })
+       
+       
+       
+           }
+           else{
+        Contribution.find({}, function (err, contributon) {
+            if (err){
+                console.log(err)
+            }
+            else{
+                res.render("admin/dashboard", {
+                    contributon,users,category
+                });
+            }
+        })
+    }*/
+
+
+
+ 
+});
+
+
+
+
+
+
+
+
 /**
  * @description - Get all contributors request.
  */

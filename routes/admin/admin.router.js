@@ -21,7 +21,9 @@
     addCategory,
     categoryAdd,
     categoryDelete,
-    categoryUpdate
+    categoryUpdate,
+    dashboard,
+    dashboardSearch
   } = require("../../controllers/admin/admin.controller.js");
  
  // Declare router.
@@ -31,13 +33,21 @@
   * Routes
   */
 
-
  AdminRouter.route("/admin/dashboard")
-     .get(protect, role.checkRole(role.ROLES.ADMIN), (req, res)=>{
+     .get(protect, role.checkRole(role.ROLES.ADMIN),dashboard/* (req, res)=>{
          return res.render("admin/dashboard", {
-             action: "/user/register",
+             action: "/user/register",             
          });
-     })
+     }*/)
+
+     AdminRouter.route("/admin/dashboardSearch")
+     .post(protect, role.checkRole(role.ROLES.ADMIN),dashboardSearch/* (req, res)=>{
+         return res.render("admin/dashboard", {
+             action: "/user/register",             
+         });
+     }*/)
+
+
   //   .post(register);
 
 
