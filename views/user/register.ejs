@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/css/"> 
 <div>
-    <form action="<%= action %>" method="post">
+    <form action="<%= action %>" method="post" enctype="multipart/form-data">
         <div>
             <input type="text" id="firstName" name="firstName" placeholder="First Name">
         </div>
@@ -16,6 +16,9 @@
         </div>
         <div>
             <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone number">
+        </div>
+        <div>
+            <input type="file" name="avatar" id="avatar" placeholder="Upload Avatar">
         </div>
         <div>
             <button type="submit">Submit</button>

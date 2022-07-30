@@ -1,10 +1,17 @@
 /**
  * Node Modules.
  */
- const mongoose = require("mongoose");
- const Schema = mongoose.Schema;
- const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
+const bannerSchema = new Schema({
+    path: {
+        type: String
+    },
+    filename: {
+        type: String
+    }
+});
 
 const contributionSchema = new Schema({
     title: {
@@ -17,9 +24,11 @@ const contributionSchema = new Schema({
         required: [true, "Content is required"],
         trim: true
     },
-    uploadDate: {
-        type: Date,
-        required: true
+    banner: bannerSchema,
+    category: {
+        type: String,
+        enum:['science', 'art', 'tech'],
+        trim: true
     },
     views: {
         type: Number,
@@ -30,4 +39,9 @@ const contributionSchema = new Schema({
         ref: 'User',
         required: true,
     }
+}, {
+    timestamps: true
 });
+
+const Contribution = mongoose.model("Contribution", contributionSchema);
+module.exports = Contribution;

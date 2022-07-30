@@ -1,0 +1,14 @@
+<% layout('layouts/boilerplate') %>
+<div>
+    <% contributions.forEach(contribution => { %> 
+        <% if(contribution.banner?.path){ %>
+            <img style="width: 100px;" src="<%= contribution.banner.path %>" alt="">
+        <% } %>  
+        <div>
+            <h3><%= contribution.title %></h3>
+            <p><%= contribution.content %></p>
+            <p>Category: <%= contribution.category %></p>
+            <p>Created at: <%= contribution.createdAt %></p>
+        </div>
+    <% }) %> 
+</div>

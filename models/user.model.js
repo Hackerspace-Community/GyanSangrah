@@ -66,6 +66,10 @@ const userSchema = new Schema({
         enum: ["ROLE_USER", "ROLE_ADMIN", "ROLE_CONTRIBUTOR"],
         default: "ROLE_USER"
     },
+    contributions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Contribution'
+    }],
     tokens: [{
         token: {
             type: String,

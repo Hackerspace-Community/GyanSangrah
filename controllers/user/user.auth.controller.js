@@ -73,12 +73,28 @@ module.exports.register = catchAsync(async (req, res)=>{
         return res.redirect("/user/register");
     }
 
+    if(!req.file){
+        req.flash("error", "Please upload an avatar");
+        return res.redirect("/user/register");
+    }
+
+    const {
+        path,
+        filename
+    } = req.file;
+
+    const avatar = {
+        path,
+        filename
+    }
+
     const user = new User({
         firstName,
         lastName,
         email,        
         password,
-        phoneNumber
+        phoneNumber,
+        avatar
     });
 
     const token = newToken(user._id);
