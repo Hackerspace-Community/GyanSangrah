@@ -4,6 +4,88 @@
 <a href="/admin/contributorManagement">Contributor Management</a></br>
 <a href="/admin/category">Category</a></br>
 
-    
+<body>
+<br><br><br>
+    <form action="/admin/dashboardSearch" method="post">
+        <div>
+            <input type="text" id="anything" name="anything" placeholder="Search Title!">       
+            
+
+            <br>
+            <p>Search By Category:</p>
+        <% if(category.length > 0) { %> 
+            <select name="categoryId" id="categoryId">
+                 <option value="All">All</option>
+                <% category.forEach(category => { %> 
+                <option value="<%= category._id %>">
+                    <%= category.title %> 
+                </option>
+                <% }) %> 
+            </select>
+        <% } %>
+
+        <br>
+        <p>Search By Contributor:</p>
+    <% if(users.length > 0) { %> 
+        <select name="contributorId" id="contributorId">
+            <option value="All">All</option>
+            <% users.forEach(users => { %> 
+            <option value="<%= users._id %>">
+                <%= users.firstName %> 
+            </option>
+            <% }) %> 
+        </select>
+    <% } %>
+
+
+
+ 
+            
+            <button type="submit">GO</button>
+        </div>
+    </form>
+
+    <br><br><br>
+
+
+
+    <table border = "1">
+       <tr>
+          <th>Contributor</th>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Topic</th>
+          <th>Knowledge Files</th>
+          <th>No. of Visits</th>
+          <th>No of Downloads</th>
+          <th>View</th>
+       </tr>
+
+       <% for(var i=0; i < contributon.length; i++) { %>
+        <tr>
+      
+          <tr>
+            <td><%= contributon[i].id %></td>
+            <td><%= contributon[i].title %></td>
+            <td><%= contributon[i].createdAt %></td>
+            <td><%= contributon[i].category %></td>
+            <td>5</td>
+            <td><%= contributon[i].views %></td>
+            <td>8</td>
+            <td>OPEN</td>
+         </tr>
+       
+        
+       
+         
+         
+     <% } %>
+
+
+     
+      
+    </table>
+
+
 </div> 
 <script src="/js/"></script>

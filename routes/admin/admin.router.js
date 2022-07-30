@@ -21,16 +21,27 @@ const {
     addCategory,
     categoryAdd,
     categoryDelete,
-    categoryUpdate
-} = require("../../controllers/admin/admin.controller.js");
+    categoryUpdate,
+    dashboard,
+    dashboardSearch
+  } = require("../../controllers/admin/admin.controller.js");
+ 
+ // Declare router.
+ const AdminRouter = Router();
 
-// Declare router.
-const AdminRouter = Router();
+ AdminRouter.route("/admin/dashboard")
+     .get(protect, role.checkRole(role.ROLES.ADMIN),dashboard/* (req, res)=>{
+         return res.render("admin/dashboard", {
+             action: "/user/register",             
+         });
+     }*/)
 
-/**
- * Routes
- */
-
+  AdminRouter.route("/admin/dashboardSearch")
+     .post(protect, role.checkRole(role.ROLES.ADMIN),dashboardSearch/* (req, res)=>{
+         return res.render("admin/dashboard", {
+             action: "/user/register",             
+         });
+     }*/)
 
 AdminRouter.route("/admin/dashboard")
     .get(protect, role.checkRole(role.ROLES.ADMIN), (req, res) => {
@@ -38,7 +49,6 @@ AdminRouter.route("/admin/dashboard")
             action: "/user/register",
         });
     })
-
 
 AdminRouter.route("/admin/contributorManagement")
     .get(protect, role.checkRole(role.ROLES.ADMIN), allContributorRequest)
