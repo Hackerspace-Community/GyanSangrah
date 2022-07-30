@@ -20,7 +20,7 @@ const checkRole = (...roles) => (req, res, next) => {
     const hasRole = roles.find(role => req.user.role === role);
     if(!hasRole){
         req.flash("error", "You are not authorized to do that");
-        return res.redirect("/");
+        return res.redirect("/user/profile");
     }
     return next();
 }

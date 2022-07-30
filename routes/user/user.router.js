@@ -7,6 +7,7 @@ const { Router } = require("express");
  * Route Middlewares.
  */
 const protect = require("../../middlewares/auth/protect.js");
+const role = require("../../middlewares/auth/role.js");
 
 /**
  * Middlewares
@@ -60,6 +61,7 @@ UserRouter.route("/user/logoutAll")
 
 UserRouter.route("/user/profile")
     .get(protect, (req, res)=>{
+        console.log(req.user)
         return res.render("user/profile");
     });
 
@@ -70,6 +72,20 @@ UserRouter.route("/user/edit")
         });
     })
     .put(protect, cloudinaryUpload.single('avatar'), updateUser)
+
+UserRouter.route("/user/becomeContributor")
+    .get(protect, async (req, res)=>{
+        const user = req.user;
+        if(user.contributorStatus === "pending"){
+            req.flash("error", "Your request is pending");
+            return res.redirect("/user/profile");
+        }
+        user.contributorStatus = "pending";
+        await user.save();
+
+        req.flash("success", "Your request to become a contributor has be sent!");
+        return res.redirect("/user/profile");
+    })
 
 UserRouter.route("/user/secret")
     .get(protect, (req, res)=>{

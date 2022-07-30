@@ -10,6 +10,11 @@
     <p>Phone number: <%= currentUser.phoneNumber %> </p> 
 </div>
 <a href="/user/edit">Update Profile</a>
-<a href="/contribution/create">Make Contribution</a>
+
+<% if(currentUser.role === 'ROLE_CONTRIBUTOR') { %> 
+    <a href="/contribution/create">Make Contribution</a>
+<% } else { %>
+    <a href="/user/becomeContributor">Become Contributor</a>
+<% } %> 
 
 <script src="/js/"></script>

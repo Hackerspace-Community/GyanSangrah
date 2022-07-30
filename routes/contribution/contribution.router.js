@@ -7,6 +7,7 @@ const { Router } = require("express");
  * Route Middlewares.
  */
 const protect = require("../../middlewares/auth/protect.js");
+const role = require("../../middlewares/auth/role.js");
 const { cloudinaryUpload } = require("../../middlewares/upload/cloudinary.js");
 
 /**
@@ -36,7 +37,7 @@ ContributionRouter.route("/contributions")
 
 // Create a new contribution
 ContributionRouter.route("/contribution/create")
-    .get(protect, async (req, res)=>{
+    .get(protect, role.checkRole(role.ROLES.CONTRIBUTOR), async (req, res)=>{
         // Get all categories
         const categories = await Category.find({});
 

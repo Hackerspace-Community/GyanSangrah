@@ -105,7 +105,7 @@ module.exports.register = catchAsync(async (req, res)=>{
     res.cookie("token", token, { signed: true });
     req.flash("success", "You have successfully registered");
 
-    return res.redirect("/");
+    return res.redirect("/contributions");
 });
 
 /**
@@ -145,7 +145,7 @@ module.exports.login = catchAsync(async (req, res)=>{
     res.cookie("token", token, { signed: true });
     req.flash("success", "You have successfully logged in");
 
-    return res.redirect("/");
+    return res.redirect("/contributions");
 });
 
 /**
