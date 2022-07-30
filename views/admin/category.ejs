@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/"> 
+<div>
+
+    <form action="/admin/categoryAdd" method="post">
+        <div>
+            <input type="text" id="title" name="title" placeholder="Title">
+        </div>
+       
+        <div>
+            <button type="submit">ADD</button>
+        </div>
+    </form>
+
+
+
+<table>
+    <% for(var i=0; i < category.length; i++) { %>
+       <tr>
+         <td><%= category[i].title%></td>
+         <td><%= category[i].status%></td>
+         <td>
+            <form action="/admin/categoryDelete/<%= category[i]._id %>" method="POST">
+                  
+           
+                <button type="submit" class="">
+                    DELETE
+                </button>
+           
+        </form>
+    
+           </td>
+
+       </tr>
+
+   
+    <% } %>
+    </table>
+
+
+</div>
+<script src="/js/"></script>
