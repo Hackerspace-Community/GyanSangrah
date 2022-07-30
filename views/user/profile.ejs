@@ -13,8 +13,10 @@
 
 <% if(currentUser.role === 'ROLE_CONTRIBUTOR') { %> 
     <a href="/contribution/create">Make Contribution</a>
+<% } else if(currentUser.role === 'ROLE_ADMIN') { %>
+    <a href="/admin/contributorManagement">Contributor Management</a>
 <% } else { %>
     <a href="/user/becomeContributor">Become Contributor</a>
-<% } %> 
+<% } %>  
 
 <script src="/js/"></script>

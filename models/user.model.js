@@ -75,6 +75,10 @@ const userSchema = new Schema({
         enum: ["pending", "approved", "rejected", "none"],
         default: "none"
     },
+    designation: {
+        type: String,
+        trim: true
+    },
     tokens: [{
         token: {
             type: String,

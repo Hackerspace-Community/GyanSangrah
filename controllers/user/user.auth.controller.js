@@ -28,10 +28,11 @@ module.exports.register = catchAsync(async (req, res)=>{
         lastName,
         email,
         password,
-        phoneNumber
+        phoneNumber,
+        designation
     } = req.body;
 
-    if(!firstName || !lastName || !email || !password || !phoneNumber) {
+    if(!firstName || !lastName || !email || !password || !phoneNumber || !designation) {
         req.flash("error", "Please fill in all fields");
         return res.redirect("/user/register");
     }
@@ -94,7 +95,8 @@ module.exports.register = catchAsync(async (req, res)=>{
         email,        
         password,
         phoneNumber,
-        avatar
+        avatar,
+        designation
     });
 
     const token = newToken(user._id);
