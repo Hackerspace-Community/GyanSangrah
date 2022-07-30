@@ -1,14 +1,24 @@
 <% layout('layouts/boilerplate') %>
-<div>
-    <% contributions.forEach(contribution => { %> 
-        <% if(contribution.banner?.path){ %>
-            <img style="width: 100px;" src="<%= contribution.banner.path %>" alt="">
-        <% } %>  
-        <div>
-            <h3><%= contribution.title %></h3>
-            <p><%= contribution.content %></p>
-            <p>Category: <%= contribution.category?.title || "All" %></p>
-            <p>Created at: <%= contribution.createdAt %></p>
+
+<!-- Blogs -->
+
+<div class="products container-fluid">
+    <% contributions.forEach(contribution => { %>
+        <div class="card">
+            <% if(contribution.banner?.path){ %>
+                <img src="<%= contribution.banner?.path || 'https://picsum.photos/200' %>" alt="">
+            <% } %>  
+            <div class="mx-4 mt-3 mb-3">
+                <p class="text-primary"><%= contribution.category?.title || "All" %></p>
+                <p class="card-title fw-bold fs-5">
+                    <a href="/contribution/<%= contribution._id  %>"> <%= contribution.title %></a>
+                </p>
+                <p class="description" style="font-size: 0.8rem;"><%= contribution.content %></p>
+                <div class="d-flex blog-author">
+                    <img src="<%= contribution.user.avatar.path %> " alt="">
+                    <p class="description" style="font-size: 0.8rem;"><%= contribution.user.firstName %> </p>
+                </div>
+            </div>
         </div>
-    <% }) %> 
+    <% }) %>  
 </div>

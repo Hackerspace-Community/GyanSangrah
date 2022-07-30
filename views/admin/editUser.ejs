@@ -1,0 +1,19 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/"> 
+<div>
+    <form action="<%= action %>"  method="POST" enctype="multipart/form-data">
+        <div>
+            <input type="text" id="firstName" name="firstName" value="<%= user.firstName  %>" placeholder="First Name">
+        </div>
+        <div>
+            <input type="text" name="lastName" id="lastName" value="<%= user.lastName  %>" placeholder="Last Name">
+        </div>
+        <div>
+            <input type="file" name="avatar" id="avatar" placeholder="Update Avatar">
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="/js/"></script>

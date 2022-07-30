@@ -1,0 +1,15 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/"> 
+<div>
+    <div>
+        <img style="width:100px;" src="<%= user.avatar.path %>" alt="">
+    </div>
+    <p>First Name: <%= user.firstName%> </p>
+    <p>Last Name: <%= user.lastName %> </p>
+    <p>Email: <%= user.email%></p> 
+    <p>Phone number: <%= user.phoneNumber %> </p> 
+</div>
+<a href="/user/edit/<%= user._id %>">Edit Profile</a>
+
+
+<script src="/js/"></script>

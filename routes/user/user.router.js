@@ -4,6 +4,11 @@
 const { Router } = require("express");
 
 /**
+ * Models.
+ */
+const User = require("../../models/user.model.js");
+
+/**
  * Route Middlewares.
  */
 const protect = require("../../middlewares/auth/protect.js");
@@ -90,5 +95,24 @@ UserRouter.route("/user/becomeContributor")
 UserRouter.route("/user/secret")
     .get(protect, (req, res)=>{
         return res.render("user/secret");
+    });
+
+UserRouter.route("/user/edit/:id")
+    .get(protect, role.checkRole(role.ROLES.ADMIN), async (req, res)=>{
+        const user = await User.findById(req.params.id);
+        return res.render("admin/editUser", {
+            action: `/user/edit/${user._id}?_method=PUT`,
+            user,
+        });
+    })
+    .put(protect, role.checkRole(role.ROLES.ADMIN), cloudinaryUpload.single('avatar'), updateUser)
+
+UserRouter.route("/user/:id")
+    .get(protect, role.checkRole(role.ROLES.ADMIN), async(req, res)=>{
+        const { id } = req.params;
+        const user = await User.findById(id);
+        return res.render("admin/viewUser", {
+            user
+        });
     });
 module.exports = UserRouter;
