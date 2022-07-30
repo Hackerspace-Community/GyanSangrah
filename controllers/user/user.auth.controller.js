@@ -24,13 +24,20 @@ const { newToken } = require("../../utils/auth/jwt.js");
  */
 module.exports.register = catchAsync(async (req, res)=>{
     const {
-        username,
+        firstName,
+        lastName,
         email,
         password,
+        phoneNumber
     } = req.body;
 
-    if(!username || !email || !password){
+    if(!firstName || !lastName || !email || !password || !phoneNumber) {
         req.flash("error", "Please fill in all fields");
+        return res.redirect("/user/register");
+    }
+
+    if(!validator.isAlpha(firstName) || !validator.isAlpha(lastName)){
+        req.flash("error", "First and last name must be alphabetical");
         return res.redirect("/user/register");
     }
 
@@ -44,17 +51,34 @@ module.exports.register = catchAsync(async (req, res)=>{
         return res.redirect("/user/register");
     }
 
-    const existingUser = await User.findOne({ email });
+    if(!validator.isMobilePhone(phoneNumber, "en-IN")){
+        req.flash("error", "Please enter a valid phone number");
+        return res.redirect("/user/register");
+    }
+
+    // Check if user already exists based on its phone or email.
+    const existingUser = await User.findOne({
+        $or: [
+            {
+                email
+            },
+            {
+                phoneNumber
+            }
+        ]
+    });
 
     if(existingUser){
-        req.flash("error", "An account already exists with that email");
+        req.flash("error", "An account already exists with that email or phone number");
         return res.redirect("/user/register");
     }
 
     const user = new User({
-        username,
-        email,
-        password
+        firstName,
+        lastName,
+        email,        
+        password,
+        phoneNumber
     });
 
     const token = newToken(user._id);

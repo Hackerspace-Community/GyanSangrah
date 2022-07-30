@@ -6,13 +6,42 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 
 /**
+ * Model options
+ */
+const opts = {
+    toJSON: {
+        virtuals: true
+    }
+}
+
+/**
+ * Image Schema
+ */
+const imageSchema = new Schema({
+    path: {
+        type: String
+    },
+    filename: {
+        type: String
+    }
+},
+{
+    timestamps: true
+}, opts)
+
+/**
  * User Schema
  */
 const userSchema = new Schema({
-    username: {
+    firstName: {
         type: String,
-        trim: true,
-        required: [true, "Username is required"]
+        required: [true, "First name is required"],
+        trim: true
+    },
+    lastName: {
+        type: String,
+        required: [true, "Last name is required"],
+        trim: true
     },
     email: {
         type: String,
@@ -25,6 +54,13 @@ const userSchema = new Schema({
         trim: true,
         required: [true, "Password is required"]
     },
+    phoneNumber: {
+        type: String,
+        trim: true,
+        unique: true,
+        required: [true, "Phone number is required"]
+    },
+    avatar: imageSchema,
     role: {
         type: String,
         enum: ["ROLE_USER", "ROLE_ADMIN", "ROLE_CONTRIBUTOR"],
