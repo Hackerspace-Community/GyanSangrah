@@ -7,7 +7,7 @@
         <div>
             <h3><%= contribution.title %></h3>
             <p><%= contribution.content %></p>
-            <p>Category: <%= contribution.category %></p>
+            <p>Category: <%= contribution.category?.title || "All" %></p>
             <p>Created at: <%= contribution.createdAt %></p>
         </div>
     <% }) %> 

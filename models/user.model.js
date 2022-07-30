@@ -70,6 +70,11 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Contribution'
     }],
+    contributorStatus: {
+        type: String,
+        enum: ["pending", "approved", "rejected", "none"],
+        default: "none"
+    },
     tokens: [{
         token: {
             type: String,

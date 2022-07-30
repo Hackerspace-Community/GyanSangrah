@@ -26,9 +26,8 @@ const contributionSchema = new Schema({
     },
     banner: bannerSchema,
     category: {
-        type: String,
-        enum:['science', 'art', 'tech'],
-        trim: true
+        type: Schema.Types.ObjectId,
+        ref: "Category",
     },
     views: {
         type: Number,

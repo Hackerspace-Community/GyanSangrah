@@ -1,13 +1,21 @@
 <% layout('layouts/boilerplate') %>
 <div>
+    <%= categories %> 
+</div>
+<div>
     <form action="/contribution/create" method="post" enctype="multipart/form-data">
         <input type="text" name="title" id="title" placeholder="Title">
         <input type="text" name="content" id="content" placeholder="Content">
-        <select name="category" id="category">
-            <option value="science">Science</option>
-            <option value="tech">Tech</option>
-            <option value="art">Art</option>
-        </select>
+
+        <% if(categories.length > 0) { %> 
+            <select name="category" id="category">
+                <% categories.forEach(category => { %> 
+                <option value="<%= category._id %>">
+                    <%= category.title %> 
+                </option>
+                <% }) %> 
+            </select>
+        <% } %>
         <input type="file" name="banner" id="banner">
         <button type="submit">Make Contribution</button>
     </form>

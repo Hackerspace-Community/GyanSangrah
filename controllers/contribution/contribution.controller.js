@@ -75,7 +75,7 @@ module.exports.create = catchAsync(async (req, res) => {
     ]);
 
     req.flash('success', 'Contribution created successfully');
-    return res.redirect('/user/profile');
+    return res.redirect(`/contribution/${contribution._id}`);
 
 });
 
@@ -83,8 +83,20 @@ module.exports.create = catchAsync(async (req, res) => {
  * @description - Get all contributions.
  */
 module.exports.getAllContributions = catchAsync(async (req, res) => {
-    const contributions = await Contribution.find({});
+    const contributions = await Contribution.find({}).populate('category');
+   
     return res.render('contribution/contributions', {
         contributions,
     });
 })
+
+/**
+ * @description - Get a contribution.
+ */
+module.exports.getOneContribution = catchAsync(async (req, res) => {
+    const contribution = await Contribution.findById(req.params.id).populate('category');
+
+    return res.render('contribution/contribution', {
+        contribution,
+    });
+});

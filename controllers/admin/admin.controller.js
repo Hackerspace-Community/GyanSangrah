@@ -14,16 +14,12 @@
   * Utils.
   */
  const catchAsync = require("../../utils/catchAsync.js");
- const { newToken } = require("../../utils/auth/jwt.js");
 
 
-
-
-
-
+/**
+ * @description - Get all contributors request.
+ */
  module.exports.allContributorRequest = catchAsync(async (req, res) => {
-    const model = req.model;
-
     const users = await User.find()
 
     if(!users) {
@@ -37,9 +33,7 @@
 });
 
 
-
-
-module.exports.ContributorRequestApprove = catchAsync(async (req, res) => {
+module.exports.contributorRequestApprove = catchAsync(async (req, res) => {
   
     const {
         id
@@ -67,7 +61,7 @@ module.exports.ContributorRequestApprove = catchAsync(async (req, res) => {
 
 
 
-module.exports.ContributorRequestDelete = catchAsync(async (req, res) => {
+module.exports.contributorRequestDelete = catchAsync(async (req, res) => {
   
     const {
         id
@@ -90,7 +84,7 @@ module.exports.ContributorRequestDelete = catchAsync(async (req, res) => {
 
 
 
-module.exports.allCategory = catchAsync(async (req, res) => {
+module.exports.addCategory = catchAsync(async (req, res) => {
     const category = await Category.find()
 
     if(!category) {

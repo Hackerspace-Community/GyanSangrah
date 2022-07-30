@@ -10,11 +10,17 @@ const protect = require("../../middlewares/auth/protect.js");
 const { cloudinaryUpload } = require("../../middlewares/upload/cloudinary.js");
 
 /**
+ * Models.
+ */
+const Category = require("../../models/admin.category.model.js")
+
+/**
  * Controllers
  */
 const {
     create,
-    getAllContributions
+    getAllContributions,
+    getOneContribution
 } = require("../../controllers/contribution/contribution.controller.js");
 
 
@@ -30,12 +36,19 @@ ContributionRouter.route("/contributions")
 
 // Create a new contribution
 ContributionRouter.route("/contribution/create")
-    .get(protect, (req, res)=>{
-        return res.render("contribution/create");
+    .get(protect, async (req, res)=>{
+        // Get all categories
+        const categories = await Category.find({});
+
+        return res.render("contribution/create", {
+            categories
+        });
     })
     .post(protect, cloudinaryUpload.single("banner"), create)
 
-
+// Get contribution by id
+ContributionRouter.route("/contribution/:id")
+    .get(getOneContribution)
 
 
 module.exports = ContributionRouter;

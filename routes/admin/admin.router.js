@@ -7,6 +7,7 @@
   * Route Middlewares.
   */
  const protect = require("../../middlewares/auth/protect.js");
+ const role = require("../../middlewares/auth/role.js");
  
  /**
   * Auth controllers.
@@ -15,9 +16,12 @@
 
  const {
     allContributorRequest,
-    ContributorRequestApprove,
-    ContributorRequestDelete,
-    allCategory, categoryAdd,  categoryDelete, categoryUpdate
+    contributorRequestApprove,
+    contributorRequestDelete,
+    addCategory,
+    categoryAdd,
+    categoryDelete,
+    categoryUpdate
   } = require("../../controllers/admin/admin.controller.js");
  
  // Declare router.
@@ -29,7 +33,7 @@
 
 
  AdminRouter.route("/admin/dashboard")
-     .get((req, res)=>{
+     .get(protect, role.checkRole(role.ROLES.ADMIN), (req, res)=>{
          return res.render("admin/dashboard", {
              action: "/user/register",
          });
@@ -38,27 +42,27 @@
 
 
   AdminRouter.route("/admin/contributorManagement")
-    .get(allContributorRequest)
+    .get(protect, role.checkRole(role.ROLES.ADMIN), allContributorRequest)
 
     AdminRouter.route("/admin/contributorManagementApprove/:id")
-    .post(ContributorRequestApprove)
+    .post(protect, role.checkRole(role.ROLES.ADMIN), contributorRequestApprove)
 
     AdminRouter.route("/admin/contributorManagementDelete/:id")
-    .post(ContributorRequestDelete)
+    .post(protect, role.checkRole(role.ROLES.ADMIN), contributorRequestDelete)
 
  
 
     AdminRouter.route("/admin/category")
-    .get(allCategory)
+    .get(protect, role.checkRole(role.ROLES.ADMIN), addCategory)
 
     AdminRouter.route("/admin/categoryAdd")
-    .post(categoryAdd)
+    .post(protect, role.checkRole(role.ROLES.ADMIN), categoryAdd)
 
     AdminRouter.route("/admin/categoryDelete/:id")
-    .post(categoryDelete)
+    .post(protect, role.checkRole(role.ROLES.ADMIN), categoryDelete)
 
     AdminRouter.route("/admin/categoryUpdate")
-    .post(categoryUpdate)
+    .post(protect, role.checkRole(role.ROLES.ADMIN), categoryUpdate)
 
 
 
