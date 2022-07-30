@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "devstart": "env-cmd -f ./configs/dev.env nodemon app.js"
+    "devstart": "env-cmd -f ./dev.env nodemon app.js"
   },
   "repository": {
     "type": "git",
