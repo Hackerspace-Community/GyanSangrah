@@ -9,6 +9,7 @@ const { Router } = require("express");
 const protect = require("../../middlewares/auth/protect.js");
 const role = require("../../middlewares/auth/role.js");
 const { cloudinaryUpload } = require("../../middlewares/upload/cloudinary.js");
+const multerUpload = require("../../middlewares/upload/multer.js");
 
 /**
  * Models.
@@ -45,7 +46,7 @@ ContributionRouter.route("/contribution/create")
             categories
         });
     })
-    .post(protect, cloudinaryUpload.single("banner"), create)
+    .post(protect, multerUpload.array("files"), create)
 
 // Get contribution by id
 ContributionRouter.route("/contribution/:id")

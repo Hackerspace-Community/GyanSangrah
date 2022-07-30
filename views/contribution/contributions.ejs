@@ -10,11 +10,13 @@
             <% } %>  
             <div class="mx-4 mt-3 mb-3">
                 <p class="text-primary"><%= contribution.category?.title || "All" %></p>
-                <p class="card-title fw-bold fs-5"><%= contribution.title %></p>
+                <p class="card-title fw-bold fs-5">
+                    <a href="/contribution/<%= contribution._id  %>"> <%= contribution.title %></a>
+                </p>
                 <p class="description" style="font-size: 0.8rem;"><%= contribution.content %></p>
                 <div class="d-flex blog-author">
-                    <img src="https://picsum.photos/100" alt="">
-                    <p class="description" style="font-size: 0.8rem;">Ruthfoot Motion</p>
+                    <img src="<%= contribution.user.avatar.path %> " alt="">
+                    <p class="description" style="font-size: 0.8rem;"><%= contribution.user.firstName %> </p>
                 </div>
             </div>
         </div>

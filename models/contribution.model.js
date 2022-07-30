@@ -4,14 +4,41 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const bannerSchema = new Schema({
-    path: {
+/**
+ * File Schema
+ */
+const fileSchema = new Schema({
+    originalname: {
         type: String
     },
-    filename: {
+    encoding: {
         type: String
+    },
+    buffer: {
+        type: Buffer
+    },
+    size: {
+        type: Number
+    },
+    downloadCount: {
+        type: Number,
+        default: 0
     }
-});
+}, {
+    timestamps: true
+})
+
+/**
+ * Banner Schema
+ */
+// const bannerSchema = new Schema({
+//     path: {
+//         type: String
+//     },
+//     filename: {
+//         type: String
+//     }
+// });
 
 const contributionSchema = new Schema({
     title: {
@@ -24,7 +51,10 @@ const contributionSchema = new Schema({
         required: [true, "Content is required"],
         trim: true
     },
-    banner: bannerSchema,
+    banner: {
+        type: String,
+    },
+    files: [fileSchema],
     category: {
         type: Schema.Types.ObjectId,
         ref: "Category",

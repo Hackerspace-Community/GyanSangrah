@@ -12,4 +12,12 @@
         <p>Category: <%= contribution.category?.title || "All" %></p>
         <p>Created at: <%= contribution.createdAt %></p>
     </div>
+    <div>
+        <% if(contribution.files.length > 0){ %>
+            <h3>Additonal files</h3>
+            <% contribution.files.forEach(file => { %>
+                <a href="/file/<%= file._id  %>"><%= file.originalname %></a>
+            <% }) %>  
+        <% } %> 
+    </div>
 </div>

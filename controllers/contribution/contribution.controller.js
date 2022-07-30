@@ -17,12 +17,15 @@ const Contribution = require('../../models/contribution.model.js');
  * @description - Create a new contribution.
  */
 module.exports.create = catchAsync(async (req, res) => {
+    console.log(req.files);
+
     const user = req.user;
 
     const {
         title,
         content,
         category,
+        banner
     } = req.body;
 
     if(!title || !content || !category) {
@@ -51,19 +54,36 @@ module.exports.create = catchAsync(async (req, res) => {
     });
 
     // Add banner image if it exists
-    if(req.file) {
-        const {
-            path,
-            filename
-        } = req.file;
-
-        const banner = {
-            path,
-            filename
-        };
-
+    if(banner) {
         contribution.banner = banner;
+    } else {
+        contribution.banner = "https://i.imgur.com/fQu8ySn.jpg";
     }
+
+    if(req.files) {
+        contribution.files = req.files.map(file => {
+            return {
+                originalname: file.originalname,
+                fieldname: file.fieldname,
+                encoding: file.encoding,
+                buffer: file.buffer,
+                size: file.size,
+            }
+        })
+    }
+    // if(req.file) {
+    //     const {
+    //         path,
+    //         filename
+    //     } = req.file;
+
+    //     const banner = {
+    //         path,
+    //         filename
+    //     };
+
+    //     contribution.banner = banner;
+    // }
 
     // Relate contribution to user
     user.contributions.push(contribution._id);
@@ -83,8 +103,10 @@ module.exports.create = catchAsync(async (req, res) => {
  * @description - Get all contributions.
  */
 module.exports.getAllContributions = catchAsync(async (req, res) => {
-    const contributions = await Contribution.find({}).populate('category');
-   
+    const contributions = await Contribution.find({}).populate('category').populate('user');
+
+    console.log(contributions);
+
     return res.render('contribution/contributions', {
         contributions,
     });
@@ -95,6 +117,9 @@ module.exports.getAllContributions = catchAsync(async (req, res) => {
  */
 module.exports.getOneContribution = catchAsync(async (req, res) => {
     const contribution = await Contribution.findById(req.params.id).populate('category');
+
+    contribution.views += 1;
+    await contribution.save();
 
     return res.render('contribution/contribution', {
         contribution,
