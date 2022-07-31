@@ -53,23 +53,34 @@ module.exports.dashboardSearch = catchAsync(async (req, res) => {
     
 console.log(anything,categoryId,contributorId);
 
-if(!anything && categoryId!="All" & contributorId != "All"){
+if(anything){
 
-console.log('ANYTHING');
+    Contribution.find({title:anything }, function (err, contributon) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.render("admin/dashboard", {
+                contributon,users,category
+            });
+        }
+    });
 
 }
 
-
-
-
-
-else if(anything && categoryId=="All" & contributorId != "All"){
-
-    console.log('ANYTHING Category');
-
-}else{
+else{
     
-    return res.redirect('/admin/dashboard');   
+    Contribution.find({}, function (err, contributon) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.render("admin/dashboard", {
+                contributon,users,category
+            });
+        }
+    });
+
 }
 
 
