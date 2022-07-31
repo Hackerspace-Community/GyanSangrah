@@ -168,7 +168,7 @@ module.exports.logout = catchAsync(async (req, res)=>{
     req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
     await req.user.save();
     req.flash("success", "You have successfully logged out");
-    return res.redirect("/");
+    return res.redirect("/contributions");
 })
 
 /**
