@@ -116,7 +116,9 @@ module.exports.getAllContributions = catchAsync(async (req, res) => {
  * @description - Get a contribution.
  */
 module.exports.getOneContribution = catchAsync(async (req, res) => {
-    const contribution = await Contribution.findById(req.params.id).populate('category');
+    const contribution = await Contribution.findById(req.params.id).populate('category').populate('user');
+
+    console.log(contribution.user);
 
     contribution.views += 1;
     await contribution.save();

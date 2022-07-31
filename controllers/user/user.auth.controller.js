@@ -147,6 +147,11 @@ module.exports.login = catchAsync(async (req, res)=>{
     res.cookie("token", token, { signed: true });
     req.flash("success", "You have successfully logged in");
 
+    if(user.role === 'ROLE_ADMIN'){
+        req.flash("success", "Welcome to dashboard");
+        return res.redirect("/admin/dashboard");
+    }
+
     return res.redirect("/contributions");
 });
 
