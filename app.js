@@ -78,8 +78,6 @@ app.route("/")
     .get((req, res)=>{
         res.render("home");
     });
-//MONGODB_URI=mongodb+srv://harshitrv:Ty60VWGHE3d8H03B@cluster0.25abo.mongodb.net/TechMarathonDB?retryWrites=true&w=majority
-
 
 app.listen(PORT, ()=>{
     connectDB();

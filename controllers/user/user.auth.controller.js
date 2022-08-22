@@ -164,7 +164,6 @@ module.exports.login = catchAsync(async (req, res)=>{
  */
 module.exports.logout = catchAsync(async (req, res)=>{
     res.clearCookie("token");
-    console.log(req.user);
     req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
     await req.user.save();
     req.flash("success", "You have successfully logged out");

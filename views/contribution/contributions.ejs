@@ -1,25 +1,18 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/css/styles.css">
-<!-- Blogs -->
-
-
-<div class="products container-fluid">
-    
+<div>
     <% contributions.forEach(contribution => { %>
-        <div class="card">
+        <div>
             <% if(contribution.banner){ %>
-                <img src="<%= contribution.banner || 'https://picsum.photos/200' %>" alt="">
+                <img style="width: 100px;" src="<%= contribution.banner || 'https://picsum.photos/200' %>" alt="">
             <% } %>  
-            <div class="mx-4 mt-3 mb-3">
-                <p class="text-primary"><%= contribution.category?.title || "All" %></p>
-                <p class="card-title fw-bold fs-5">
-                    <a href="/contribution/<%= contribution._id  %>"> <%= contribution.title %></a>
-                </p>
-                <p class="description" style="font-size: 0.8rem;"><%= contribution.content %></p>
-                <div class="d-flex blog-author">
-                    <img src="<%= contribution.user.avatar.path %> " alt="">
-                    <p class="description" style="font-size: 0.8rem;"><%= contribution.user.firstName %> </p>
-                </div>
+            <p><%= contribution.category?.title || "All" %></p>
+            <p>
+                <a href="/contribution/<%= contribution._id  %>"> <%= contribution.title %></a>
+            </p>
+            <p style="font-size: 0.8rem;"><%= contribution.content %></p>
+            <div>
+                <img style="width: 100px;" src="<%= contribution.user.avatar.path %> " alt="">
+                <p class="description" style="font-size: 0.8rem;"><%= contribution.user.firstName %> </p>
             </div>
         </div>
     <% }) %>  

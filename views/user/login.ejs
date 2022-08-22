@@ -1,22 +1,20 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/css/styles.css"> 
-<div class="container container-fluid">
-    <div class="mt-2 display-3">Login</div>
+<div>
+    <div>Login</div>
     <form id="form" action="<%= action %>" method="POST">
         <div id="error"></div>
-        <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" for="">Email</label>
+        <div>
+            <label for="email">Email</label>
             <div>
-                <input name="email" type="email" class="form-control-plaintext border rounded" id="email" />
+                <input name="email" type="email" id="email" />
             </div>
         </div>
-        <div class="">
-            <label class="col-sm-2 col-form-label" for="">Password</label>
-
-            <input name="password" type="password" class="form-control-plaintext border rounded" id="password" />
+        <div>
+            <label for="password">Password</label>
+            <input name="password" type="password" id="password" />
         </div>
-        <div class="d-grid rounded-pill mt-4">
-            <button type="submit" class="btn btn-dark" style="width: 50%;">Submit</button>
+        <div>
+            <button type="submit">Submit</button>
           </div>
     </form>
 </div>

@@ -16,159 +16,64 @@ const Category = require("../../models/admin.category.model.js");
 const catchAsync = require("../../utils/catchAsync.js");
 
 
+const Contribution = require('../../models/contribution.model.js');
 
- const Contribution = require('../../models/contribution.model.js');
 
-
- module.exports.dashboard = catchAsync(async (req, res) => {
+module.exports.dashboard = catchAsync(async (req, res) => {
     const contributon = await Contribution.find()
     const users = await User.find()
     const category = await Category.find()
 
-    if(!contributon) {
+    if (!contributon) {
         req.flash("error", "No Users found");
         return res.redirect("/");
     }
-    
+
     res.render("admin/dashboard", {
-        contributon,users,category
+        contributon, users, category
     });
 });
 
 
 module.exports.dashboardSearch = catchAsync(async (req, res) => {
- //   const contributonList = await Contribution.find()
     const users = await User.find()
     const category = await Category.find()
-
-  /*  if(!contributonList) {
-        req.flash("error", "No Users found");
-        return res.redirect("/");
-    }
-*/
-
     const {
-        anything,categoryId,contributorId,toDate,fromDate
+        anything, categoryId, contributorId, toDate, fromDate
     } = req.body;
-    
-console.log(anything,categoryId,contributorId);
 
-if(anything){
+    if (anything) {
 
-    Contribution.find({title:anything }, function (err, contributon) {
-        if (err){
-            console.log(err)
-        }
-        else{
-            res.render("admin/dashboard", {
-                contributon,users,category
-            });
-        }
-    });
-
-}
-
-else{
-    
-    Contribution.find({}, function (err, contributon) {
-        if (err){
-            console.log(err)
-        }
-        else{
-            res.render("admin/dashboard", {
-                contributon,users,category
-            });
-        }
-    });
-
-}
-
-
-/*
-
-    Contribution.find({title:anything }, function (err, contributon) {
-        if (err){
-            console.log(err)
-        }
-        else{
-            res.render("admin/dashboard", {
-                contributon,users,category
-            });
-        }
-    });
-
-*/
-
-
-
-// !anything   
-/*if(anything && contributorId && categoryId){
-    console.log("nullsed");
-    
-    
-       Contribution.find({title: anything  }, function (err, contributon) {
-            if (err){
+        Contribution.find({ title: anything }, function (err, contributon) {
+            if (err) {
                 console.log(err)
             }
-            else{
+            else {
                 res.render("admin/dashboard", {
-                    contributon,users,category
+                    contributon, users, category
                 });
             }
         });
-    
-    
-    
-        console.log("detect n");
-    }else if(categoryId == "All" && contributorId == "All" && !anything){
 
-
- Contribution.find({title: anything }, function (err, contributon) {
-    if (err){
-        console.log(err)
     }
-    else{
-        res.render("admin/dashboard", {
-            contributon,users,category
-        });
-    }
-})
 
-
-
-    }else if(categoryId == "All" && contributorId != "All" && !anything){
-
+    else {
 
         Contribution.find({}, function (err, contributon) {
-           if (err){
-               console.log(err)
-           }
-           else{
-               res.render("admin/dashboard", {
-                   contributon,users,category
-               });
-           }
-       })
-       
-       
-       
-           }
-           else{
-        Contribution.find({}, function (err, contributon) {
-            if (err){
+            if (err) {
                 console.log(err)
             }
-            else{
+            else {
                 res.render("admin/dashboard", {
-                    contributon,users,category
+                    contributon, users, category
                 });
             }
-        })
-    }*/
+        });
+
+    }
 
 
 
- 
 });
 
 
@@ -203,7 +108,6 @@ module.exports.contributorRequestApprove = catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
-    console.log(id);
 
 
     User.findByIdAndUpdate(id, { role: 'ROLE_CONTRIBUTOR' },
@@ -281,7 +185,6 @@ module.exports.categoryDelete = catchAsync(async (req, res) => {
     const {
         id
     } = req.params;
-    console.log(id);
 
     Category.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
@@ -293,5 +196,6 @@ module.exports.categoryDelete = catchAsync(async (req, res) => {
 
 
 });
+
 module.exports.categoryUpdate = catchAsync(async (req, res) => {
 });

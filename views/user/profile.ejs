@@ -1,22 +1,32 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/css/"> 
-<div>
-    <div>
-        <img style="width:100px;" src="<%= currentUser.avatar.path %>" alt="">
-    </div>
-    <p>First Name: <%= currentUser.firstName%> </p>
-    <p>Last Name: <%= currentUser.lastName %> </p>
-    <p>Email: <%= currentUser.email%></p> 
-    <p>Phone number: <%= currentUser.phoneNumber %> </p> 
-</div>
-<a href="/user/edit">Update Profile</a>
-
-<% if(currentUser.role === 'ROLE_CONTRIBUTOR') { %> 
-    <a href="/contribution/create">Make Contribution</a>
-<% } else if(currentUser.role === 'ROLE_ADMIN') { %>
-    <a href="/admin/contributorManagement">Contributor Management</a>
-<% } else { %>
-    <a href="/user/becomeContributor">Become Contributor</a>
-<% } %>  
-
-<script src="/js/"></script>
+<section>
+  <img src="<%= currentUser.avatar?.path %> " alt="avatar" style="width: 150px;">
+    <h5>
+      <%= currentUser.firstName %>
+        <%= currentUser.lastName %>
+    </h5>
+    <h6>
+      <%= currentUser.email %>
+    </h6>
+    <p>
+      <%= currentUser.phoneNumber %>
+    </p>
+    <p>
+      <%= currentUser.designation %>
+    </p>
+    <p>
+      <%= currentUser.firstName %>
+    </p>
+    <div class="col">
+      <% if(currentUser.role==='ROLE_CONTRIBUTOR' ) { %>
+        <a href="/contribution/create">Contribute</a>
+      <% } else if(currentUser.role==='ROLE_ADMIN' ) { %>
+          <a href="/admin/contributorManagement">Contributor Management</a>
+      <% } else { %>
+          <a href="/user/becomeContributor">Become Contributor</a>
+      <% } %>
+  </div>
+  <div class="col">
+    <a href="/user/edit" role="button">Update Profile</a>
+  </div>
+</section>

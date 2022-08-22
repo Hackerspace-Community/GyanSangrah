@@ -17,7 +17,6 @@ const Contribution = require('../../models/contribution.model.js');
  * @description - Create a new contribution.
  */
 module.exports.create = catchAsync(async (req, res) => {
-    console.log(req.files);
 
     const user = req.user;
 
@@ -105,8 +104,6 @@ module.exports.create = catchAsync(async (req, res) => {
 module.exports.getAllContributions = catchAsync(async (req, res) => {
     const contributions = await Contribution.find({}).populate('category').populate('user');
 
-    console.log(contributions);
-
     return res.render('contribution/contributions', {
         contributions,
     });
@@ -117,8 +114,6 @@ module.exports.getAllContributions = catchAsync(async (req, res) => {
  */
 module.exports.getOneContribution = catchAsync(async (req, res) => {
     const contribution = await Contribution.findById(req.params.id).populate('category').populate('user');
-
-    console.log(contribution.user);
 
     contribution.views += 1;
     await contribution.save();
